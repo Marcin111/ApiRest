@@ -28,6 +28,7 @@ public class MainController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Employee getEmployeeById(@PathVariable(value = "id") Long id){
         return employeeRepository.findById(id);
+//                .orElseThrow(() -> new ResourceNotFoundException("Employee", "id", id));
     }
 
     @GetMapping("/{name}")
@@ -52,7 +53,7 @@ public class MainController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Employee updateById(@PathVariable(value = "id") @Valid @RequestBody Long id, Employee employeeDetails){
-        Employee employee = employeeRepository.deleteById(id);
+        Employee employee = employeeRepository.findById(id);
         employee.setName(employeeDetails.getName());
         employee.setSurname(employeeDetails.getSurname());
         employee.setJob(employeeDetails.getJob());
