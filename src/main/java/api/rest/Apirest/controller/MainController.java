@@ -1,71 +1,76 @@
 package api.rest.Apirest.controller;
 
 import api.rest.Apirest.entities.Employee;
-import api.rest.Apirest.repositories.EmployeeRepository;
+import api.rest.Apirest.dao.EmployeeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping("api/employees")
 @RestController
+@RequestMapping ("/api")
 public class MainController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    EmployeeDAO employeeDAO;
 
-    @GetMapping
-    public Iterable<Employee> getAllEmployee() {
-        return employeeRepository.findAll();
+    @PostMapping("/employees")
+    public Employee createEmployee(@Valid @RequestBody Employee emp){
+        return employeeDAO.save(emp);
     }
 
-    @PostMapping
-    public Employee addEmployee(@Valid Employee employee){
-        return employeeRepository.save(employee);
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployees(){
+        return employeeDAO.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Employee getEmployeeById(@PathVariable(value = "id") Long id){
-        return employeeRepository.findById(id);
-//                .orElseThrow(() -> new ResourceNotFoundException("Employee", "id", id));
+    @GetMapping("/employees/{id}")
+    public Employee getEmployeeById(@PathVariable(value = "id") Long empid){
+        return employeeDAO.findOne(empid);
     }
 
-    @GetMapping("/{name}")
-    public Employee getEmployeeByName(@PathVariable(value = "name") String name){
-        return employeeRepository.findByName(name);
+    @RequestMapping(value = "/employees/search/name", method = RequestMethod.GET)
+    public List<Employee> getEmployeeByName(@RequestParam(value = "name") String name){
+        return employeeDAO.findName(name);
     }
 
-    @GetMapping("/{surname}")
-    public Employee getEmployeeBySurname(@PathVariable(value = "surname") String surname){
-        return employeeRepository.findBySurname(surname);
+    @RequestMapping(value = "/employees/search/surname", method = RequestMethod.GET)
+    public List<Employee> getEmployeeBySurname(@RequestParam(value = "surname") String surname){
+        return employeeDAO.findSurname(surname);
     }
 
-    @GetMapping("/{mail}")
-    public Employee getEmployeeByMail(@PathVariable(value = "mail") String mail){
-        return employeeRepository.findByMail(mail);
+    //http://localhost:8080/api/employees/search/email?email=??
+    @RequestMapping(value = "/employees/search/email", method = RequestMethod.GET)
+    public List<Employee> getEmployeeByEmail(@RequestParam(value = "email") String email){
+        return employeeDAO.findEmail(email);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public Employee deleteById(@PathVariable(value = "id") Long id){
-        return employeeRepository.deleteById(id);
-    }
+    @PutMapping("/employees/{id}")
+    public Employee updateEmployee(@PathVariable(value = "id") Long empid, @Valid @RequestBody Employee empDetails){
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Employee updateById(@PathVariable(value = "id") @Valid @RequestBody Long id, Employee employeeDetails){
-        Employee employee = employeeRepository.findById(id);
-        employee.setName(employeeDetails.getName());
-        employee.setSurname(employeeDetails.getSurname());
-        employee.setJob(employeeDetails.getJob());
-        employee.setMail(employeeDetails.getMail());
-        Employee updateEmployee = employeeRepository.save(employee);
+        Employee emp=employeeDAO.findOne(empid);
+
+        emp.setName(empDetails.getName());
+        emp.setSurname(empDetails.getSurname());
+        emp.setJob(empDetails.getJob());
+        emp.setEmail(empDetails.getEmail());
+
+        Employee updateEmployee=employeeDAO.save(emp);
         return updateEmployee;
     }
 
-    @RequestMapping(value = "/jobs", method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/jobs", method = RequestMethod.GET)
     @ResponseBody
-    public String jobs() {
-        return employeeRepository.findDistinctCountByJob().toString();
+    public String jobsCount() {
+        return employeeDAO.jobCount().toString();
+    }
+
+    @DeleteMapping("employees/{id}")
+    public Employee deleteEmployee(@PathVariable(value = "id") Long empid){
+        Employee emp=employeeDAO.findOne(empid);
+        employeeDAO.delete(emp);
+        return employeeDAO.findOne(empid);
     }
 
 }

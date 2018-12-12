@@ -1,27 +1,36 @@
 package api.rest.Apirest.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
-//@Getter
-//@Setter
 @Entity
-//@NoArgsConstructor
+@Table(name = "Employees")
+@EntityListeners(AuditingEntityListener.class)
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String surname;
+
+    @NotBlank
     private String job;
-    private String mail;
+
+
+    private String email;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date createdAt;
 
     public Long getId() {
         return id;
@@ -55,19 +64,19 @@ public class Employee {
         this.job = job;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    //    public Employee(String name, String surname, String job, String mail) {
-//        this.name = name;
-//        this.surname = surname;
-//        this.job = job;
-//        this.mail = mail;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
