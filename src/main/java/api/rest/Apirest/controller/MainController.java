@@ -9,44 +9,44 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api")
+@RequestMapping ("/api/employees")
 public class MainController {
 
     @Autowired
     EmployeeDAO employeeDAO;
 
-    @PostMapping("/employees")
+    @PostMapping("/")
     public Employee createEmployee(@Valid @RequestBody Employee emp){
         return employeeDAO.save(emp);
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/")
     public List<Employee> getAllEmployees(){
         return employeeDAO.findAll();
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable(value = "id") Long empid){
         return employeeDAO.findOne(empid);
     }
 
-    @RequestMapping(value = "/employees/search/name", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/name", method = RequestMethod.GET)
     public List<Employee> getEmployeeByName(@RequestParam(value = "name") String name){
         return employeeDAO.findName(name);
     }
 
-    @RequestMapping(value = "/employees/search/surname", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/surname", method = RequestMethod.GET)
     public List<Employee> getEmployeeBySurname(@RequestParam(value = "surname") String surname){
         return employeeDAO.findSurname(surname);
     }
 
     //http://localhost:8080/api/employees/search/email?email=??
-    @RequestMapping(value = "/employees/search/email", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/email", method = RequestMethod.GET)
     public List<Employee> getEmployeeByEmail(@RequestParam(value = "email") String email){
         return employeeDAO.findEmail(email);
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable(value = "id") Long empid, @Valid @RequestBody Employee empDetails){
 
         Employee emp=employeeDAO.findOne(empid);
@@ -60,13 +60,13 @@ public class MainController {
         return updateEmployee;
     }
 
-    @RequestMapping(value = "/employees/jobs", method = RequestMethod.GET)
+    @RequestMapping(value = "/jobs", method = RequestMethod.GET)
     @ResponseBody
     public String jobsCount() {
         return employeeDAO.jobCount().toString();
     }
 
-    @DeleteMapping("employees/{id}")
+    @DeleteMapping("/{id}")
     public Employee deleteEmployee(@PathVariable(value = "id") Long empid){
         Employee emp=employeeDAO.findOne(empid);
         employeeDAO.delete(emp);
