@@ -1,12 +1,22 @@
+#Java 8 #Spring #Hibernate #JPA
+
 #IntelliJ #MySQL
+
+-------------------------------------------------------------------------------------------------------------
 
 1. git clone
 2. create database library
 3. change mysql username and password
 
+-------------------------------------------------------------------------------------------------------------
+
 {"name": "MORGAN","surname": "FREEMAN","job": "CLERK","email": "hen@att.net"}
 
+-------------------------------------------------------------------------------------------------------------
+
 DROP TABLE EMPLOYEES;
+
+-------------------------------------------------------------------------------------------------------------
 
 INSERT INTO EMPLOYEES VALUES(1, '2018-12-12 04:57:40', 'pad@live.com', 'PRESIDENT' , 'FREEMAN' ,  'MORGAN');
 INSERT INTO EMPLOYEES VALUES(2, '2018-12-12 04:57:40', 'padme@live.com', 'CLERK', 'SMITH',  'CLARK');
