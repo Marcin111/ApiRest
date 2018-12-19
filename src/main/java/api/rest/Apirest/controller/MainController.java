@@ -30,18 +30,18 @@ public class MainController {
         return employeeDAO.findOne(empid);
     }
 
-    @RequestMapping(value = "/search/name", method = RequestMethod.GET)
+    @RequestMapping(value = "/name", method = RequestMethod.GET)
     public List<Employee> getEmployeeByName(@RequestParam(value = "name") String name){
         return employeeDAO.findName(name);
     }
 
-    @RequestMapping(value = "/search/surname", method = RequestMethod.GET)
+    @RequestMapping(value = "/surname", method = RequestMethod.GET)
     public List<Employee> getEmployeeBySurname(@RequestParam(value = "surname") String surname){
         return employeeDAO.findSurname(surname);
     }
 
-    //http://localhost:8080/api/employees/search/email?email=??
-    @RequestMapping(value = "/search/email", method = RequestMethod.GET)
+    //http://localhost:8080/api/employees/email?email=??
+    @RequestMapping(value = "/email", method = RequestMethod.GET)
     public List<Employee> getEmployeeByEmail(@RequestParam(value = "email") String email){
         return employeeDAO.findEmail(email);
     }
