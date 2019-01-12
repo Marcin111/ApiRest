@@ -10,6 +10,16 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+To view all employees:
+
+To add employee:
+
+To update employee:
+
+To delete employee:
+
+To view jobs:
+
 {"name": "MORGAN","surname": "FREEMAN","job": "CLERK","email": "hen@att.net"}
 
 -------------------------------------------------------------------------------------------------------------
