@@ -45,7 +45,6 @@ Example: DELETE http://localhost:8080/api/employees/1
 To view jobs with employees count:
 GET http://localhost:8080/api/employees/jobs
 
-
 -------------------------------------------------------------------------------------------------------------
 
 DROP TABLE EMPLOYEES;
