@@ -11,16 +11,40 @@
 -------------------------------------------------------------------------------------------------------------
 
 To view all employees:
+GET http://localhost:8080/api/employees/
 
 To add employee:
+POST http://localhost:8080/api/employees/
+Example body: {"name": "Morgan","surname": "Freeman","job": "CLERK","email": "hen@att.net"}
 
-To update employee:
+To view employee by id:
+GET http://localhost:8080/api/employees/{id}
+Example: GET http://localhost:8080/api/employees/1
 
-To delete employee:
+To view employees by name:
+GET http://localhost:8080/api/employees/name
+Example: GET http://localhost:8080/api/employees/name?name=morgan
 
-To view jobs:
+To view employees by surname:
+GET http://localhost:8080/api/employees/surname
+Example: GET http://localhost:8080/api/employees/surname?surname=freeman
 
-{"name": "MORGAN","surname": "FREEMAN","job": "CLERK","email": "hen@att.net"}
+To view employees by email:
+GET http://localhost:8080/api/employees/email
+Example: GET http://localhost:8080/api/employees/email?email=hen@att.net
+
+To update employee by id:
+PUT http://localhost:8080/api/employees/{id}
+Example: PUT http://localhost:8080/api/employees/1
+Example body: {"name": "MORGAN","surname": "Gates","job": "CLERK","email": "hen@att.net"}
+
+To delete employee by id:
+DELETE http://localhost:8080/api/employees/{id}
+Example: DELETE http://localhost:8080/api/employees/1
+
+To view jobs with employees count:
+GET http://localhost:8080/api/employees/jobs
+
 
 -------------------------------------------------------------------------------------------------------------
 
